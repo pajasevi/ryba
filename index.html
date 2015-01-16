@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <style media="screen">
+          html,
+          body,
+          #page {
+            height: 100%;
+          }
+
+
+          #page {
+            width: 800px;
+            margin: 0 auto;
+            padding: 2em;
+            background: #eee;
+          }
+          h1 {
+            text-align: center;
+          }
+
+
+          .tab {
+            display: inline-block;
+            background: #ccc;
+            padding: 0.5em;
+          }
+          .tab.active {
+            background: #fff;
+          }
+          .tabs-content {
+            background: #fff;
+            padding: 0.5em;
+          }
+          .tabs-content > div {
+            display: none;
+          }
+          .tabs-content > .active {
+            display: block;
+          }
+
+          .accordion-header {
+            cursor: pointer;
+            background: #ccc;
+            padding: 0.5em;
+          }
+
+          .accordion-body {
+            display: none;
+            background: #fff;
+            padding: 0.5em;
+          }
+
+        </style>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="page">
+          <h1>Ryba</h1>
+          <h2>Akordeon</h2>
+          <div id="akordeon-priklad">
+            <div class="accordion">
+              <div class="accordion-header">Nadpis akordeonu</div>
+              <div class="accordion-body">Tělo akordeonu, třeba lorem ipsum</div>
+            </div>
+            <div class="accordion">
+              <div class="accordion-header">Nadpis akordeonu</div>
+              <div class="accordion-body">Tělo akordeonu, třeba lorem ipsum</div>
+            </div>
+            <div class="accordion">
+              <div class="accordion-header">Nadpis akordeonu</div>
+              <div class="accordion-body">Tělo akordeonu, třeba lorem ipsum</div>
+            </div>
+          </div>
+          <h2>Modal</h2>
+          <div id="modal-priklad">
+            <a href="modal.html" class="modal">Modal test</a>
+          </div>
+          <h2>Taby</h2>
+          <div id="taby-priklad">
+            <div class="tabs">
+              <a href="#tab1" class="tab active">Tab 1</a>
+              <a href="#tab2" class="tab">Tab 2</a>
+              <a href="#tab3" class="tab">Tab 3</a>
+            </div>
+            <div class="tabs-content">
+              <div id="tab1" class="active">Mám auto a to auto jezdí dokola.</div>
+              <div id="tab2">A nevím co s ním.</div>
+              <div id="tab3">Asi ho prodám a koupim si motorku.</div>
+            </div>
+          </div>
+          <h2>Tooltip</h2>
+          <div id="tooltip-priklad">
+
+          </div>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script>
+        $(function() {
+          $('.tab').on('click', function( event ) {
+            event.preventDefault();
+
+            var target = $(this).attr('href');
+
+            $('.tabs-content > .active').removeClass('active');
+            $(target).addClass('active');
+
+            $('.tab').removeClass('active');
+            $(this).addClass('active');
+          });
+        });
+
+        $(function() {
+          $('.modal').on('click', function( event ) {
+            event.preventDefault();
+
+            var target = $(this).attr('href');
+
+            if (target != undefined && target != '#') {
+              $('#modalContent').load(target, function( response, status, xhr ) {
+                if (status === 'success') {
+                  $('#modal, #overlay').fadeIn();
+                }
+                else {
+                  alert( 'error: ' + xhr.status + ' ' + xhr.statusText )
+                }
+              });
+            }
+          });
+
+          $('#closeModal, #overlay').on('click', function() {
+            $('#modal, #overlay').fadeOut(400, function() {
+              $('#modalContent').empty();
+            });
+          });
+        });
+
+
+        $(function() {
+          $('.accordion-header').on('click', function() {
+            var $acc = $(this).parent();
+            var $accBody = $(this).parent().find('.accordion-body');
+
+            if($acc.hasClass('open')) {
+              $accBody.slideUp(function() {
+                $acc.removeClass('open');
+              });
+            }
+            else {
+              $accBody.slideDown(function() {
+                $acc.addClass('open');
+              });
+            }
+          });
+        });
+        </script>
+
+
+
+        <div id="overlay"></div>
+        <div id="modal">
+          <a href="javascript:void(0)" id="closeModal">close modal</a>
+          <div id="modalContent"></div>
+        </div>
+    </body>
+</html>
