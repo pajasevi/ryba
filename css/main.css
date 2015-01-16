@@ -397,3 +397,13 @@ h1 {
 #closeModal {
   float: right;
 }
+
+
+
+#tooltipContent {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5em;
+  position: absolute;
+  color: #fff;
+  font-size: 12px;
+}

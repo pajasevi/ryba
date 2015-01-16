@@ -17,7 +17,7 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 
         <style media="screen">
-          
+
         </style>
 
     </head>
@@ -63,7 +63,7 @@
           </div>
           <h2>Tooltip</h2>
           <div id="tooltip-priklad">
-
+            <span class="tooltip" data-tooltip="Nejlepší tooltip na světě">Rybička</span>
           </div>
         </div>
 
@@ -126,6 +126,32 @@
                 $acc.addClass('open');
               });
             }
+          });
+        });
+
+
+
+        $(function() {
+
+          $('body').append('<div id="tooltipContent"></div>');
+
+          $('.tooltip').on('mouseover', function() {
+            var tooltipContent = $(this).attr('data-tooltip');
+
+            $('#tooltipContent').text(tooltipContent);
+
+            var elemTop = $(this).offset().top - ($('#tooltipContent').outerHeight());
+            var elemCenter = $(this).offset().left + ( $(this).innerWidth() / 2 );
+            var tooltipLeft = elemCenter - ($('#tooltipContent').outerWidth() / 2);
+
+            $('#tooltipContent').show().css({
+              'top': elemTop + 'px',
+              'left': tooltipLeft + 'px'
+            })
+          });
+
+          $('.tooltip').on('mouseout', function() {
+            $('#tooltipContent').hide();
           });
         });
         </script>
